@@ -4,6 +4,7 @@
 
 const split = require('split2')
 const { Client } = require('@elastic/elasticsearch')
+var flateen = require('flat')
 
 function pinoElasticSearch (opts) {
   if (opts['bulk-size']) {
@@ -15,7 +16,7 @@ function pinoElasticSearch (opts) {
     var value
 
     try {
-      value = JSON.parse(line)
+      value = flateen(JSON.parse(line))
     } catch (error) {
       this.emit('unknown', line, error)
       return
